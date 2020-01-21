@@ -108,7 +108,7 @@ $name = $_POST['name'];
 
 ```php
 
-$db = new PDO($db = new PDO('mysql:host=localhost;dbname=your_db_name', 'username', 'password');)
+$db = new PDO('mysql:host=localhost;dbname=your_db_name', 'username', 'password');)
 
 ```
 
