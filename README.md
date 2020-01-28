@@ -1,3 +1,14 @@
+# COMP1006 - Intro to Web Programming
+> Here's the notes from the class
+
+> Professor : Rich Freeman
+
+## Table of Contents
+
+- [Week 2](#week-2)
+- [Week 3](#week-3)
+
+
 ## week 2
 
 
