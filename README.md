@@ -7,6 +7,7 @@
 
 - [Week 2](#week-2)
 - [Week 3](#week-3)
+- [Week 4](#week-4)
 
 
 ## week 2
@@ -331,3 +332,246 @@ $db = null;
 
 </html>
 ```
+
+
+
+## week 4
+
+### week3 quiz
+
+
+Questions | Answers
+-|-
+What method of the PDO command object is typically used to retrieve a list of results from a database query? | `fetchAll()` is used when we expect a query to potentially return multiple records, which we then loop through to process or display.
+In the code below, what does `$b` represent?  `foreach ($beers as $b) {}` | the current record in the loop as the code cycles through all of the beers. In a PHP foreach loop, the first variable represents the entire list and the second variable represents the current item as the loop executes.|
+Which is a benefit of using Bound Parameters to pass values into an SQL command? | Special characters are automatically handled, SQL Injection attacks may be prevented, Parameter values have their data types validated 
+What tag is used for each item in a dropdown list?| `option`. The `select` tag **creates** the list and the `option` tag **wraps** each individual item inside the list. |
+On a page where we are displaying content from the database, when should we disconnect? | As soon as we no longer need the database connection we should disconnect to free up the connection for another http request.
+
+### week 4 lesson
+
+decide our project through the semester, which is a music website.
+ 
+- `musician-details.php` – form to input a new musician
+
+- `save-musician.php` – page to save a new record from the form inputs to the musicians table in the db
+
+- `musicians.php` – page that lists all the musicians in the database in an HTML table
+
+---
+
+script for the html form
+
+```sql 
+CREATE TABLE musicians
+
+(musicianId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+name VARCHAR(100) NOT NULL,
+
+recordLabel VARCHAR(50),
+
+ranking INT,
+
+solo BIT,
+
+photo VARCHAR(100),
+
+city VARCHAR(50));
+```
+
+---
+
+`musicians-details.php`
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Musician Details</title>
+</head>
+<body>
+<form action="save-musician.php" method="post">
+    <div>
+        <label for="name">Name :</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="recordLabel">Record Label :</label>
+        <input type="text" id="recordLabel" name="recordLabel" required>
+    </div>
+    <div>
+        <label for="ranking">Ranking :</label>
+        <input type="text" id="ranking" name="ranking" required>
+    </div>
+    <div>
+        <label for="solo">Solo :</label>
+        <input type="checkbox" id="solo" name="solo">
+    </div>
+    <div>
+        <label for="photo">Photo :</label>
+        <input type="file" id="photo" name="photo">
+    </div>
+    <div>
+        <label for="city">City :</label>
+        <input type="city" id="city" name="city" required>
+    </div>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
+```
+
+---
+
+`save-musician.php`
+
+```php
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Save musician</title>
+</head>
+<body>
+<a href="musicians.php">View musicians</a>
+<?php
+// get the data from the form
+$name = $_POST['name'];
+$recordLabel = $_POST['recordLabel'];
+$ranking = $_POST['ranking'];
+$solo = $_POST['solo'];
+$photo = $_POST['photo'];
+$city = $_POST['city'];
+
+// data validation
+$valid = true;
+
+if (empty($name)) {
+    echo "Please fill out the name";
+    $valid = false;
+}
+if (empty($recordLabel)) {
+    echo "Please fill out the record label";
+    $valid = false;
+}
+if (empty($ranking)) {
+    echo "Please fill out the ranking";
+    $valid = false;
+}
+if (isset($solo)) {
+    echo "Please check the checkbox";
+    $valid = false;
+}
+
+if (empty($city)) {
+    echo "Please fill out the city";
+    $valid = false;
+}
+
+if ($valid) {
+    // connect
+    $db = new PDO('mysql:host=your_host;dbname=your_db_name', "username", "password");
+
+    // set up
+    $solo = (bool)$solo;
+    $sql = "INSERT INTO musicians (name, recordLabel, ranking, solo, photo, city) VALUES (:name, :recordLabel, :ranking, :solo, :photo, :city)";
+
+    // prepare the data
+    $cmd = $db->prepare($sql);
+
+    // bindparam
+    // no need to set the size of the integer and bool
+    $cmd->bindParam(":name", $name, PDO::PARAM_STR, 100);
+    $cmd->bindParam(":recordLabel", $recordLabel, PDO::PARAM_STR, 50);
+    $cmd->bindParam(":ranking", $ranking, PDO::PARAM_INT);
+    $cmd->bindParam(":solo", $solo, PDO::PARAM_BOOL);
+    $cmd->bindParam(":photo", $photo, PDO::PARAM_STR, 100)
+    $cmd->bindParam(":city", $city, PDO::PARAM_STR, 50);
+
+    // execute
+    $cmd->execute();
+
+    // echo successfully
+    echo "<br> save successfully";
+
+    // disconnect
+    $db = null;
+}
+
+
+?>
+</body>
+</html>
+```
+
+---
+
+`musicians.php`
+
+```php
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Musicians</title>
+</head>
+<body>
+<a href="musician-details.php">Add musician</a>
+<?php
+// connect
+$db = new PDO('mysql:host=your_host;dbname=your_db_name', "username", "password");
+
+// set up & execute
+$sql = "SELECT * FROM musicians";
+$cmd = $db->prepare($sql);
+$cmd->execute();
+$musicians = $cmd->fetchAll();
+
+// print the table
+
+echo "<table border=\"1\"><thead><th>Name</th><th>Record Label</th><th>Ranking</th><th>Solo</th><th>Photo</th><th>City</th></thead>";
+
+
+
+foreach ($musicians as $musician) {
+    echo "<tr><td>{$musician['name']}</td>
+    <td>{$musician['recordLabel']}</td>
+    <td>{$musician['ranking']}</td>";
+
+    if($musician['solo'] == 1) {
+        echo "<td>Solo</td>";
+    }
+    else {
+        echo "<td>Band</td>";
+    }
+
+
+    //<td>{$musician['solo']}</td>
+    echo "<td>{$musician['photo']}</td>
+    <td>{$musician['city']}</td></tr>";
+
+}
+
+echo "</table>";
+
+// disconnect
+$db = null;
+
+?>
+
+
+</body>
+</html>
+```
+
