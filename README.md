@@ -8,6 +8,7 @@
 - [Week 2](#week-2)
 - [Week 3](#week-3)
 - [Week 4](#week-4)
+- [Week 5](#week-5)
 
 
 ## week 2
@@ -574,4 +575,117 @@ $db = null;
 </body>
 </html>
 ```
+
+
+## week 5
+
+
+### week3 quiz
+
+
+Questions | Answers
+-|-
+What method of the PDO command object is typically used to retrieve a list of results from a database query? | `fetchAll()` is used when we expect a query to potentially return multiple records, which we then loop through to process or display.
+In the code below,doeb` represent?  `foreach ($beers as $b) {}` | the current record in the loop as the code cycles through all of the beers. In a PHP foreach loop, the first variable represents the entire list and the second variable represents the current item as the loop executes.|
+Which is a benefit of using Bound Parameters to pass values into an SQL command? | Special characters are automatically handled, SQL Injection attacks may be prevented, Parameter values have their data types validated 
+What tag is used for each item in a dropdown list?| `option`. The `select` tag **creates** the list and the `option` tag **wraps** each individual item inside the list. |
+On a page where we are displaying content from the database, when should we disconnect? | after we have displayed all the data. As soon as we no longer need the database connection we should disconnect to free up the connection for another http request.
+
+### week 5 lesson
+
+#### Input Validation 
+
+- what is it and why is it important?
+- List 3 types of input validation you might see in a web application
+
+[From Validation from MDN](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
+
+- We want to get the right data, in the right format. Our applications won't work properly if our users' data is stored in the wrong format, is incorrect, or is omitted altogether.
+
+- We want to protect our users' data. Forcing our users to enter secure passwords makes it easier to protect their account information.
+
+- We want to protect ourselves. There are many ways that malicious users can misuse unprotected forms to damage the application
+
+
+`required`: Specifies whether a form field needs to be filled in before the form can be submitted.
+
+`minlength` and `maxlength`: Specifies the minimum and maximum length of textual data (strings)
+
+`min` and `max`: Specifies the minimum and maximum values of numerical input types
+type: Specifies whether the data needs to be a number, an email address, or some other specific preset type. 
+
+`pattern`: Specifies a regular expression that defines a pattern the entered data needs to follow.
+
+
+---
+
+- Input Validation - what is it and why is it important?
+
+  - Ensuring user inputs are valid
+  - Preventing multiple spellings of the same value (e.g. province: ON / ONT / Ontario) -> Standardization
+  - Simplifies data collection
+  - Security - preventing code inputs for hacking attempts
+  - Checking data against the database (e.g. no duplicate usernames)
+
+
+- List 3 types of input validation you might see in a web application
+
+  - Required fields
+
+  - Format - email / password / credit card #'s / dates / postal-zip codes / phone #'s 
+
+  - Length
+   
+  - Validate against database
+
+  - Comparison (captcha / password  / dates / numeric ranges)
+
+
+
+---
+
+
+**Warning: Never trust data passed to your server from the client. Even if your form is validating correctly and preventing malformed input on the client-side, a malicious user can still alter the network request.**
+
+---
+
+validation in musicians form : 
+
+- all of the inputs are required.
+- name cannot be more than 100 characters.
+- the data type of ranking has to be integer and is a positive number
+
+
+---
+
+To test if a variable is a number or a numeric string (such as form input, which is always a string), you must use is_numeric().
+
+---
+
+At the html validation page :
+
+- The min attribute specifies the minimum value for an `<input>` element.
+
+- put the `required` in `inputs` tag
+
+- Add a `*` to specify it is a required field
+
+
+---
+
+#### add bootstrap 
+
+
+#### version controls
+
+- git
+	- source version control and source code management system
+	
+- github
+	- git repo web-based hosting service
+
+
+
+
+
 
