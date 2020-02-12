@@ -580,7 +580,7 @@ $db = null;
 ## week 5
 
 
-### week3 quiz
+### week 3 quiz
 
 
 Questions | Answers
@@ -655,10 +655,7 @@ validation in musicians form :
 - name cannot be more than 100 characters.
 - the data type of ranking has to be integer and is a positive number
 
-
----
-
-To test if a variable is a number or a numeric string (such as form input, which is always a string), you must use is_numeric().
+> To test if a variable is a number or a numeric string (such as form input, which is always a string), you must use `is_numeric()`.
 
 ---
 
@@ -675,14 +672,84 @@ At the html validation page :
 
 #### add bootstrap 
 
+cdn (content delivery network) | local copy
+-|-
+|bootstrap cdn went down, the website still have the formatting
+doesn't inspect the css style in the IDE | IDE will detect the css file locally
+
+- `table striped`
+
+- `table hover`
+
+- grid system 
+	- `col-md-2` : medium 2 column wide
+	- `offset-md-2`
+- navbar
+- other css frameworks :
+	- [material design](https://material.io/design/)
+	- [pure css](https://purecss.io/)
 
 #### version controls
 
-- git
-	- source version control and source code management system
+- What is git ?
+	- archiving system
+	
+
+- why is it important?
+	- prevent from damaging files
+	- keep different versions of the code, it's easy to collaborate with others
+	
 	
 - github
+	- one portal that is related to git
 	- git repo web-based hosting service
+	- free offsite backup
+	- employeers mostly require the github account
+
+- commit 
+	- new version
+	- every commit has a message or description to describe what work got added or changed in the version
+
+- branch
+	- different branch can divide the work and have their own branch
+	- have their own copy while working on the same project
+	- when all of the branch is done, we can merge all branches to 	master branch
+
+- README.md
+	- the description of the project 
+	
+	
+- `git init` 
+	- initialize `git` in this folder, so git will start watching for changes 
+	- only to do once
+
+- `git add .`
+	- whatever in this folder, add it into this version
+	- everytime I want to save the new version 
+	
+- `git commit -m "your_message"`
+	- `commit` : new version
+	- `-m` : message
+	- `"your_message"` : what do we do in this version of the project
+	
+- `git remote add origin the_url`
+	- link the folder to this particular url(repo)
+	- connect the local folder and remote folder 
+	
+- `git push origin master`
+	- `origin` : your local files
+	- `master` : master branch
+	- copy all the files in this folder up to github
+
+- `git pull`
+	- download the latest version of project to the local machine
+	- it also directly integrates it into your current working copy files
+	- merge conflicts can happen
+	
+- `git fetch`	
+	- download the latest version of project to the local machine
+	- but it doesn't integrate any of this new data into your working files
+
 
 
 
